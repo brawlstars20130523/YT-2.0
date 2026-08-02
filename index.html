@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube 留言抽獎工具</title>
+
+<style>
+body{
+    font-family: Arial,"Microsoft JhengHei",sans-serif;
+    background:#f2f2f2;
+    padding:20px;
+}
+
+.box{
+    max-width:600px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 0 10px #ccc;
+}
+
+h1{
+    text-align:center;
+}
+
+textarea,input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#ff0000;
+    color:white;
+    border:0;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.8;
+}
+
+.result{
+    margin-top:20px;
+    background:#eee;
+    padding:15px;
+    border-radius:10px;
+}
+
+.option{
+    margin:10px 0;
+}
+</style>
+
+</head>
+
+
+<body>
+
+<div class="box">
+
+<h1>🎁 YouTube 留言抽獎</h1>
+
+
+<label>
+YouTube影片網址（可選）
+</label>
+
+<input id="video"
+placeholder="貼 YouTube 影片連結">
+
+
+<label>
+或直接貼留言：
+</label>
+
+<textarea id="comments" rows="8"
+placeholder="格式：
+小明: 我想參加
+小華: 抽我
+阿偉: 加油"></textarea>
+
+
+<div class="option">
+<input type="checkbox" id="subscribe">
+需要訂閱頻道
+</div>
+
+<div class="option">
+<input type="checkbox" id="like">
+需要按讚影片
+</div>
+
+
+<button onclick="draw()">
+開始抽獎
+</button>
+
+
+<div class="result" id="result">
+等待抽獎...
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+function draw(){
+
+let text =
+document.getElementById("comments").value.trim();
+
+
+if(text==""){
+alert("請輸入留言！");
+return;
+}
+
+
+let list=text.split("\n")
+.filter(x=>x.trim()!="");
+
+
+let winner=
+list[Math.floor(Math.random()*list.length)];
+
+
+
+let needSub=
+document.getElementById("subscribe").checked;
+
+let needLike=
+document.getElementById("like").checked;
+
+
+
+let msg="🎉 中獎者：<br><br>";
+
+msg+=winner;
+
+
+
+if(needSub || needLike){
+
+msg+="<br><br>⚠️ 資格確認：";
+
+if(needSub)
+msg+="<br>☑ 請確認是否訂閱";
+
+if(needLike)
+msg+="<br>☑ 請確認是否按讚";
+
+}
+
+
+document.getElementById("result").innerHTML=msg;
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>
